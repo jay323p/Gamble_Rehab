@@ -89,8 +89,6 @@ const About = () => {
     const updatePieData = () => {
         if (Object.keys(gameDataRedux).length === 3) {
             const pieDataRedux = gameDataRedux.savedGraphs.pie[0];
-            console.log('pieData ----------------');
-            console.log(pieDataRedux);
             setPieData(pieDataRedux);
         }
     };
@@ -99,8 +97,6 @@ const About = () => {
         if (Object.keys(gameDataRedux).length === 3) {
             const barDataRedux = gameDataRedux.savedGraphs.bar
             const desiredBarData = barDataRedux.filter((data) => data[0].gameType === gameChosen)
-            console.log('desiredBarData -----------------------------')
-            console.log(desiredBarData)
             if (desiredBarData.length === 0) {
                 setBarData(tempBarData)
             } else {
@@ -126,7 +122,6 @@ const About = () => {
                 let lineDataObj = gameRespectiveLineData[i][0];
                 mergedLineData.push(lineDataObj);
             }
-            console.log(mergedLineData);
             setLineDataChosen(mergedLineData);
             setLineDataMerged(true);
         } else {
@@ -145,7 +140,6 @@ const About = () => {
         if (graphChosen === 'Line' && gameChosen !== '') {
             updateLineData();
         } else if (graphChosen === 'Pie' && gameChosen !== '') {
-            console.log('in here');
             updatePieData();
         } else if (graphChosen === 'Bar' && gameChosen !== '') {
             updateBarData()

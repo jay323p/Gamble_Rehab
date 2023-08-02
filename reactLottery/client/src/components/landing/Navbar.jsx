@@ -49,7 +49,6 @@ const Navbar = () => {
                 }
             };
 
-            console.log('inf loop check');
             window.addEventListener('resize', handleWindowResize);
 
             return () => {

@@ -36,7 +36,6 @@ const SlotsStatBox = () => {
             };
 
             const savedGameData = await saveGame(gameSave);
-            console.log(savedGameData);
             dispatch(SET_GAME_HISTORY_UPDATED(true));
             dispatch(SET_RESET_SLOTS_MONEY_STATS());
         } else {

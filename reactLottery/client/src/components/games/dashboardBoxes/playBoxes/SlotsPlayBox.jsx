@@ -337,12 +337,8 @@ const SlotsPlayBox = () => {
             historyObject.payout = 0
             historyObject.profit = -1
 
-            console.log('historyObject ------------------ not winner -----------------------')
-            console.log(historyObject)
         } else {
             historyObject.profit -= 1
-            console.log('historyObject ------------------  winner -----------------------')
-            console.log(historyObject)
         }
         dispatch(SET_SLOTS_HISTORY(historyObject))
         dispatch(SET_WINNERS(winnersFromPayoutGuide));
@@ -354,12 +350,8 @@ const SlotsPlayBox = () => {
     };
 
     const updateMoneyStats = (won) => {
-        console.log(
-            '-----------------------------------------------------------------------------------------------------------'
-        );
+
         if (won) {
-            console.log('wooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
-            console.log(winnersRedux);
             let prevWagered = moneyStatsRedux.wagered;
             let prevWon = moneyStatsRedux.won;
             let prevProfit = moneyStatsRedux.profit;
@@ -371,9 +363,6 @@ const SlotsPlayBox = () => {
             }
 
             let newProfit = prevWon - prevWagered;
-            console.log('prevWon updated');
-            console.log(prevWon);
-
             prevProfit = newProfit;
 
             dispatch(
@@ -384,8 +373,6 @@ const SlotsPlayBox = () => {
                 })
             );
         } else {
-            console.log('not won');
-            console.log(winnersRedux);
             let prevWagered = moneyStatsRedux.wagered;
             let prevProfit = moneyStatsRedux.profit;
             prevWagered += 1;
