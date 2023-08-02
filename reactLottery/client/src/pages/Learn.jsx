@@ -16,10 +16,23 @@ const Learn = () => {
     const [session, setSession] = useState()
 
     const changeGameSessions = () => {
-        const desiredSessions = gameDataRedux.savedGames.filter((game) => game.game === gameChosen)
-        setGameSessions(desiredSessions)
-        setSession(desiredSessions[0])
-        setHistoryIndex(0)
+        let desiredSessions = gameDataRedux.savedGames.filter((game) => game.game === gameChosen)
+
+        if (desiredSessions.length !== 0 && desiredSessions[0].game === 'Scratchers') {
+            console.log('in hereeee')
+            for (let i = 0; i < desiredSessions.length; i++) {
+                desiredSessions[i].history.splice(0, 1)
+                console.log('desiredSessions')
+                console.log(desiredSessions)
+            }
+            setGameSessions(desiredSessions)
+            setSession(desiredSessions[0])
+            setHistoryIndex(0)
+        } else {
+            setGameSessions(desiredSessions)
+            setSession(desiredSessions[0])
+            setHistoryIndex(0)
+        }
     }
 
     const updateViewedSession = (game, i) => {
@@ -60,7 +73,7 @@ const Learn = () => {
                     </div>
                     <div className='h-[70%] w-full flex flex-col overflow-y-scroll bg-dark shadow3'>
                         {gameSessions && gameSessions.map((game, i) => {
-                            return <div className={`${historyIndex === i ? 'bg-lightGreen' : 'linearGradientText1'} h-1/4 w-full flex justify-evenly items-center greenUnderline hover2`} onClick={() => updateViewedSession(game, i)}>
+                            return <div key={`session-${i}`} className={`${historyIndex === i ? 'bg-lightGreen' : 'linearGradientText1'} h-1/4 w-full flex justify-evenly items-center greenUnderline hover2`} onClick={() => updateViewedSession(game, i)}>
                                 <div className='w-[20%]'>Game {i + 1}</div>
                                 <div className='w-[25%] text-[14px]'>${game.moneyStats.wagered}-Wager</div>
                                 <div className='w-[22.5%] text-[14px]'>Won ${game.moneyStats.won}</div>

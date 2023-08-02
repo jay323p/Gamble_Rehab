@@ -7,7 +7,7 @@ const KenoSession = ({ session }) => {
                 session.history.length > 0 &&
                 session.history.map((game, i) => {
                     return (
-                        <div className="w-full bg-dark flex justify-evenly items-center py-[4px]">
+                        <div key={`keno-${i}-${Math.random()}`} className="w-full bg-dark flex justify-evenly items-center py-[4px]">
                             <h3 className="text-dark text-[12px] h-full font-semibold bg-lightGreen rounded-sm p-[2px]">
                                 <span className="bg-dark text-lightGreen px-[1px]">#{i}</span>{' '}
                                 <span className="bg-heroBorder px-[1px]">
@@ -25,9 +25,9 @@ const KenoSession = ({ session }) => {
                             <div className="w-1/2 h-full kenoStatGrid">
                                 {game.fixedWinningNums &&
                                     game.recentWinningNums &&
-                                    game.recentWinningNums.map((num) => {
+                                    game.recentWinningNums.map((num, i) => {
                                         return (
-                                            <div
+                                            <div key={`keno-win-${num}-${i}-${Math.random()}`}
                                                 className={`${game.fixedWinningNums[num] ? 'statGridUserMatch' : ''
                                                     } bg-dark text-brilliantGreen text-[10px] rounded-sm`}
                                             >
