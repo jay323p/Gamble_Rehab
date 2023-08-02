@@ -756,7 +756,7 @@
 }
 
 .hover1:hover {
-     /* background: -webkit-linear-gradient(#5fb495, #234e3e);
+  /* background: -webkit-linear-gradient(#5fb495, #234e3e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #000; */
@@ -765,6 +765,6 @@
 }
 
 .hover2:hover {
-    transform: scaleX(0.95);
-    cursor: pointer;
+  transform: scaleX(0.95);
+  cursor: pointer;
 }
