@@ -28,36 +28,3 @@ const ScratchersSession = ({ session }) => {
 }
 
 export default ScratchersSession
-
-    // < div className = "h-1/4 w-full flex justify-center items-center gap-[2%]" >
-    //     { gameTicketRedux &&
-    //     gameTicketRedux.winningNums &&
-    //     gameTicketRedux.winningNums.map((num, i) => {
-    //         return (
-    //             <div
-    //                 key={`${num}-scratcher-winner`}
-    //                 className="w-1/5 bg-dark text-brilliantGreen font-extrabold rounded-sm"
-    //             >
-    //                 {num}
-    //             </div>
-    //         );
-    //     })}
-    //         </div >
-    // <div className="h-3/4 w-full scratcherGrid items-center justify-center">
-    //     {gameTicketRedux &&
-    //         gameTicketRedux.winningNums &&
-    //         gameTicketRedux.scratchOffArea.map((area, i) => {
-    //             return (
-    //                 <div
-    //                     key={`${area.number}-scratcher-matcher`}
-    //                     className={`${gameTicketRedux.winningNums.includes(area.number)
-    //                             ? 'text-brilliantGreen'
-    //                             : 'text-red-300'
-    //                         } bg-dark flex flex-col justify-center items-center rounded-md text-[12px] md:text-[14px] lg:text-[16px]`}
-    //                 >
-    //                     <div>{area.number}</div>
-    //                     <div>${area.prize.toFixed(2)}</div>
-    //                 </div>
-    //             );
-    //         })}
-    // </div>

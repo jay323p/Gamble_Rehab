@@ -19,6 +19,7 @@ const initialState = {
   calculateStats: false,
   payoutGuide: [],
   winners: [],
+  history: [],
 };
 
 const slotSlice = createSlice({
@@ -115,6 +116,10 @@ const slotSlice = createSlice({
         state.calculateStats = true;
       }
     },
+    SET_SLOTS_HISTORY(state, action) {
+      //   state.history = [];
+      state.history.push(action.payload);
+    },
   },
 });
 
@@ -129,6 +134,7 @@ export const {
   SET_GUIDERS,
   SET_PAYOUT_GUIDE,
   SET_WINNERS,
+  SET_SLOTS_HISTORY,
 } = slotSlice.actions;
 
 export const selectReadyToSpin = (state) => state.slot.readyToSpin;
@@ -139,5 +145,6 @@ export const selectSlotMoneyStats = (state) => state.slot.moneyStats;
 export const selectCalculateStats = (state) => state.slot.calculateStats;
 export const selectPayoutGuide = (state) => state.slot.payoutGuide;
 export const selectWinners = (state) => state.slot.winners;
+export const selectSlotsHistory = (state) => state.slot.history;
 
 export default slotSlice.reducer;

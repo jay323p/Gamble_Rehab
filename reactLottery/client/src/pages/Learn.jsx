@@ -18,17 +18,7 @@ const Learn = () => {
     const changeGameSessions = () => {
         let desiredSessions = gameDataRedux.savedGames.filter((game) => game.game === gameChosen)
 
-        if (desiredSessions.length !== 0 && desiredSessions[0].game === 'Scratchers') {
-            console.log('in hereeee')
-            for (let i = 0; i < desiredSessions.length; i++) {
-                desiredSessions[i].history.splice(0, 1)
-                console.log('desiredSessions')
-                console.log(desiredSessions)
-            }
-            setGameSessions(desiredSessions)
-            setSession(desiredSessions[0])
-            setHistoryIndex(0)
-        } else {
+        if (desiredSessions.length !== 0) {
             setGameSessions(desiredSessions)
             setSession(desiredSessions[0])
             setHistoryIndex(0)
