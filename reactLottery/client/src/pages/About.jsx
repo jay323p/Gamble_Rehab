@@ -49,6 +49,7 @@ const About = () => {
             if (newGameData) {
                 dispatch(SET_GAME_DATA(newGameData));
                 dispatch(SET_GAME_HISTORY_UPDATED(false));
+                toast.success('New game data retreived')
             }
         } catch (error) {
             dispatch(SET_GAME_HISTORY_UPDATED(false));
@@ -134,7 +135,7 @@ const About = () => {
         if (isLoggedInRedux === true && gameHistoryUpdatedRedux === true) {
             getNewGameData();
         }
-    }, []);
+    }, [gameHistoryUpdatedRedux, isLoggedInRedux]);
 
     useEffect(() => {
         if (graphChosen === 'Line' && gameChosen !== '') {
@@ -149,13 +150,13 @@ const About = () => {
     }, [graphChosen, gameChosen]);
 
     return (
-        <div className="h-[100vh] w-[100vw] flex flex-col overflow-x-hidden overflow-y-hidden px-[4px]">
+        <div className="h-[100vh] w-[100vw] flex flex-col overflow-x-hidden overflow-y-hidden px-[16px]">
             <Navbar />
             {/* AboutSelectBox COMPONENT START */}
-            <div className="h-[15%] w-full flex flex-col center shadow3 py-[4px] mt-[1rem] mb-[5px]">
+            <div className="h-[15%] w-full flex flex-col center shadow3 py-[4px] mt-[1rem] mb-[5px] md:p-[1rem]">
                 <div className="h-[25%] w-full text-center">
-                    <h2 className="h-full w-full linearGradientText1 font-semibold greenUnderline">
-                        Learn From Your Gambling History
+                    <h2 className="h-full w-full linearGradientText1 font-semibold lg:text-[18px]">
+                        Learn About Your Gambling History
                     </h2>
                 </div>
                 <div className="h-[75%] w-full flex flex-col">

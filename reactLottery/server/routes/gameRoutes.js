@@ -7,8 +7,8 @@ const {
 } = require('../controllers/gameController');
 const protect = require('../middleware/authMiddleware');
 
-router.post('/saveGame', saveUserGame);
-router.post('/getGameData', getAllGamesAndGraphs);
-router.delete('/deleteGameHistory', deleteUserGameHistory);
+router.post('/saveGame', protect, saveUserGame);
+router.post('/getGameData', protect, getAllGamesAndGraphs);
+router.delete('/deleteGameHistory', protect, deleteUserGameHistory);
 
 module.exports = router;

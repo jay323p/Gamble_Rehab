@@ -36,25 +36,15 @@ export const getGameData = async (userEmail) => {
     'gameData ------------------------- service ------------------------------ axios'
   );
   console.log(userEmail);
-  try {
-    const response = await axios.post(
-      'http://localhost:5000/api/games/getGameData',
-      userEmail,
-      {
-        withCredentials: true,
-      }
-    );
-
-    if (response.statusText === 'OK') {
-      console.log(response.data);
-      toast.success('Game Session Saved Successfully!');
+  const response = await axios.post(
+    'http://localhost:5000/api/games/getGameData',
+    userEmail,
+    {
+      withCredentials: true,
     }
+  );
+
+  if (response.statusText === 'OK') {
     return response.data;
-  } catch (error) {
-    const message =
-      (error.response && error.response.data && error.response.data.message) ||
-      error.message ||
-      error.toString();
-    toast.error(message);
   }
 };

@@ -123,7 +123,7 @@ const Navbar = () => {
                         </div>
                     </IconContext.Provider>
                     <IconContext.Provider value={{ className: 'nav-logo', size: '2rem' }}>
-                        <div className="flex h-full items-center">
+                        <div className="flex h-full items-center" onClick={() => navigate('/')}>
                             <GiTakeMyMoney />
                             <h1 className="font-extrabold text-lightGreen cursor-pointer text-sm md:text-lg">
                                 Gamble REHAB
@@ -131,29 +131,29 @@ const Navbar = () => {
                         </div>
                     </IconContext.Provider>
                     <div className="hidden md:flex h-full items-center text-white font-light">
-                        <h3 className={`${pageRedux === 'Home' ? 'linearGradientText1 font-bold' : ''} border-right`} onClick={() => navbarNavigate('Home', '')}>
+                        <h3 className={`${pageRedux === 'Home' ? 'linearGradientText1 font-bold' : ''} border-right hover:bg-lightGreen hover:bg-opacity-50`} onClick={() => navbarNavigate('Home', '')}>
                             Home
                         </h3>
-                        <h3 className={`${pageRedux === 'Games' ? 'linearGradientText1 font-bold' : ''} border-right`} onClick={() => navbarNavigate('Games', 'games')}>
+                        <h3 className={`${pageRedux === 'Games' ? 'linearGradientText1 font-bold' : ''} border-right hover:bg-lightGreen hover:bg-opacity-50`} onClick={() => navbarNavigate('Games', 'games')}>
                             Games
                         </h3>
-                        <h3 className={`${pageRedux === 'About' ? 'linearGradientText1 font-bold' : ''} border-right`} onClick={() => navbarNavigate('About', 'about')}>
+                        <h3 className={`${pageRedux === 'About' ? 'linearGradientText1 font-bold' : ''} border-right hover:bg-lightGreen hover:bg-opacity-50`} onClick={() => navbarNavigate('About', 'about')}>
                             About
                         </h3>
-                        <h3 className={`${pageRedux === 'Learn' ? 'linearGradientText1 font-bold' : ''} border-right`} onClick={() => navbarNavigate('Learn', 'learn')}>
+                        <h3 className={`${pageRedux === 'Learn' ? 'linearGradientText1 font-bold' : ''} border-right hover:bg-lightGreen hover:bg-opacity-50`} onClick={() => navbarNavigate('Learn', 'learn')}>
                             Learn
                         </h3>
-                        <h3 className="border-unique">News</h3>
+                        <h3 className="border-unique hover:bg-lightGreen hover:bg-opacity-50">News</h3>
                         {!isLoggedInRedux ? (
                             <h3
-                                className="border-fix font-light linearGradientText1 hover:text-white lg:hidden"
+                                className="border-fix font-bold text-brilliantGreen brightness-150 lg:hidden hover:bg-brilliantGreen hover:text-dark hover:bg-opacity-50 md:text-[14px] "
                                 onClick={() => navigate('/login')}
                             >
-                                Get Started
+                                Login
                             </h3>
                         ) : (
                             <h3
-                                className="border-fix font-light text-red-500 hover:bg-red-600 rounded-sm lg:hidden"
+                                className="border-fix font-light text-red-500 hover:bg-red-600 hover:text-dark rounded-sm lg:hidden"
                                 onClick={() => logoutUser()}
                             >
                                 Logout
@@ -172,7 +172,7 @@ const Navbar = () => {
                     {!isLoggedInRedux ? (
                         <div className="flex h-full items-center gone">
                             <button
-                                className="nav-btn font-medium lg:font-bold p-1 mr-1 md:p-2 md:px-6 text-black"
+                                className="nav-btn font-medium lg:font-bold p-1 mr-1 md:p-2 md:px-6 text-black insetShadow"
                                 onClick={() => navigate('/login')}
                             >
                                 Get Started

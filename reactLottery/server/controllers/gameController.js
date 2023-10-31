@@ -218,16 +218,18 @@ const saveUserGame = asyncHandler(async (req, res) => {
 });
 
 const getAllGamesAndGraphs = asyncHandler(async (req, res) => {
-  const { userEmail } = req.body;
+  const { email } = req.body;
+  console.log('req.user -------------------');
+  console.log(email);
 
-  if (!userEmail) {
+  if (!email) {
     res.status(404);
     throw new Error(
       'Unable to locate user game data. Please refresh the page or log in again!'
     );
   }
 
-  const userGameHistory = await Game.findOne({ userEmail });
+  const userGameHistory = await Game.findOne({ userEmail: email });
 
   if (!userGameHistory) {
     res.status(400);

@@ -4,11 +4,22 @@ import logoRowData from '../../data/logoRowData';
 import { news } from '../../data/news';
 import { houseEdges } from '../../data/houseEdges';
 
+const newsIndexer = [0, 1, 2, 3, 4]
+
 const LogoRow = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [rules, setRules] = useState('');
+    const [intro, setIntro] = useState('');
     const [types, setTypes] = useState();
     const [game, setGame] = useState('');
+    const [newsArticle, setNewsArticle] = useState(news[0])
+    const [counter, setCounter] = useState(0)
+
+    const changeNews = (spot) => {
+        console.log(spot)
+        setCounter(spot)
+        setNewsArticle(news[spot])
+    }
 
     const setLearnMoreText = (e) => {
         let gameName = e.target.textContent;
@@ -17,6 +28,7 @@ const LogoRow = () => {
         setGame(desiredGame[0].name);
         setRules(desiredGame[0].rules);
         setTypes(desiredGame[0].types);
+        setIntro(desiredGame[0].intro)
     };
 
     useEffect(() => {
@@ -171,28 +183,39 @@ const LogoRow = () => {
                                 })}
                             </div>
 
-                            <div className="h-full w-3/4 bg-heroBorder p-[5px]">
+                            <div className="max-h-full w-3/4 bg-heroBorder p-[5px]">
                                 <div className="h-full w-full bg-lightGreen shadow4 flex flex-col gap-[4px] p-[5px]">
-                                    <div className="bg-heroBorder w-full h-[50%] flex flex-col overflow-y-scroll pb-[8px]">
-                                        <h4 className="text-center text-lightGreen font-semibold">
-                                            {game ? game : ''}
-                                        </h4>
-                                        <p className="text-[12px] px-[8px] ">
-                                            {rules ? rules : ''}
-                                        </p>
+                                    <div className="bg-heroBorder w-full h-[50%] flex flex-col overflow-y-scroll gap-[4%] pb-[8px]">
+                                        <div className='flex flex-col items-center'>
+
+                                            <h4 className="text-center text-lightGreen font-semibold">
+                                                {game ? game : ''}
+                                            </h4>
+                                            <p className="text-[12px] px-[8px] ">
+                                                {intro ? intro : ''}
+                                            </p>
+                                        </div>
+                                        <div className='flex flex-col items-center'>
+                                            <h4 className="text-center text-lightGreen font-semibold">
+                                                House Edges
+                                            </h4>
+                                            <div className="flex w-[90%] ml-auto mr-auto">
+                                                <p className="w-full text-[12px]">
+                                                    Play-Style: {types && types[0].name}
+                                                </p>
+                                                <p className="w-full text-[12px]">
+                                                    House-Edge: {types && types[0].edge}%
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="bg-heroBorder w-full h-[50%] flex flex-col overflow-y-scroll pb-[8px]">
                                         <h4 className="text-center text-lightGreen font-semibold">
-                                            House Edges
+                                            {'Rules'}
                                         </h4>
-                                        <div className="flex w-[90%] ml-auto mr-auto">
-                                            <p className="w-full text-[12px]">
-                                                Play-Style: {types && types[0].name}
-                                            </p>
-                                            <p className="w-full text-[12px]">
-                                                House-Edge: {types && types[0].edge}%
-                                            </p>
-                                        </div>
+                                        <p className="text-[12px] px-[8px] leading-6">
+                                            {rules ? rules : ''}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -203,48 +226,38 @@ const LogoRow = () => {
                         initial={{ x: -200, opacity: 0 }}
                         whileInView={{ x: 0, opacity: 1 }}
                         transition={{ duration: 2 }}
-                        className="flex flex-col h-full w-full pt-[1.4rem] md:pt-[0rem] md:pb-[1rem] lg:pb-[2.6rem] xl:pb-[0.3rem]"
+                        className="flex flex-col max-h-full w-full pt-[1.4rem] md:pt-[0rem] md:pb-[1rem] lg:pb-[2.6rem] xl:pb-[0.3rem]"
                     >
                         <div className="pb-[5px] md:pb-[8px] lg:pb-[12px]">
                             <h3 className="text-brilliantGreen pl-[1rem]">Feautured News</h3>
                             <div className="underline"></div>
                         </div>
 
-                        <div className=" w-full h-full flex">
-                            <div className="h-full w-1/3 flex flex-col pl-[2px] pr-[2px] pb-[2px] bg-heroBorderLight overflow-y-scroll">
+                        <div className=" w-full max-h-full flex">
+                            <div className="max-h-full w-1/3 flex flex-col pl-[2px] pr-[2px] pb-[2px] bg-heroBorderLight overflow-y-scroll">
                                 <img
-                                    src={news[0].image}
+                                    src={newsArticle.image}
                                     alt=""
                                     className="object-contain relative top-0 pt-[2px] h-full"
                                 />
                                 <p className="text-[11px] lg:text-[13px] h-full text-center text-dark bg-heroBorder font-semibold">
-                                    {news[0].caption}
+                                    {newsArticle.caption}
                                 </p>
                             </div>
 
                             <div className="h-full w-2/3 overflow-y-scroll flex flex-col  bg-heroBorder px-[10px]">
                                 <h3 className="text-center lg:text-[20px] font-semibold">
-                                    {news[0].title}
+                                    {newsArticle.title}
                                 </h3>
-                                <p className="text-[12px] lg:text-[15px] px-[8px] pt-[10px] news-border">
-                                    {news[0].text}
+                                <p className="h-[100%] text-[12px] lg:text-[15px] px-[8px] py-[5px] news-border overflow-y-scroll">
+                                    {newsArticle.text}
                                 </p>
-                                <div className="flex justify-evenly items-end bg-heroBorder w-full h-full py-[4px]">
-                                    <div className="h-[10px] overflow-hidden rounded w-[10px] bg-heroGreen text-heroGreen cursor-pointer">
-                                        0
-                                    </div>
-                                    <div className="h-[10px] overflow-hidden rounded w-[10px] bg-heroGreen text-heroGreen cursor-pointer">
-                                        1
-                                    </div>
-                                    <div className="h-[10px] overflow-hidden rounded w-[10px] bg-heroGreen text-heroGreen cursor-pointer">
-                                        2
-                                    </div>
-                                    <div className="h-[10px] overflow-hidden rounded w-[10px] bg-heroGreen text-heroGreen cursor-pointer">
-                                        3
-                                    </div>
-                                    <div className="h-[10px] overflow-hidden rounded w-[10px] bg-heroGreen text-heroGreen cursor-pointer">
-                                        4
-                                    </div>
+                                <div className="flex justify-evenly items-end bg-heroBorder w-full h-[10%] py-[4px]">
+                                    {newsIndexer.map((num) => {
+                                        return <div key={num} className={`${counter === num ? 'bg-white text-white' : 'bg-heroGreen text-heroGreen'} h-[10px] overflow-hidden rounded w-[10px] cursor-pointer`} onClick={() => changeNews(num)}>
+                                            {num}
+                                        </div>
+                                    })}
                                 </div>
                                 <div className="underline2 h-[1px] w-full"></div>
                             </div>

@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/landing/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectGameData } from '../redux/features/auth/authSlice';
+import { SET_GAME_DATA, selectGameData, selectGameHistoryUpdated, selectIsLoggedIn, selectUser } from '../redux/features/auth/authSlice';
 import KenoSession from '../components/learn/KenoSession';
 import NumbersSession from '../components/learn/NumbersSession';
 import PowerballSession from '../components/learn/PowerballSession';
 import ScratchersSession from '../components/learn/ScratchersSession';
 import SlotsSession from '../components/learn/SlotsSession';
+import { toast } from 'react-toastify';
+import { getGameData } from '../services/gameService';
+import { useNavigate } from 'react-router-dom';
+import cubes from '../assets/cubes.gif'
 
 const Learn = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const gameDataRedux = useSelector(selectGameData)
+    const gameHistoryUpdatedRedux = useSelector(selectGameHistoryUpdated);
+    const isLoggedInRedux = useSelector(selectIsLoggedIn)
+    const userRedux = useSelector(selectUser)
     const [gameChosen, setGameChosen] = useState('')
     const [historyIndex, setHistoryIndex] = useState()
     const [gameSessions, setGameSessions] = useState()
     const [session, setSession] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     const changeGameSessions = () => {
         let desiredSessions = gameDataRedux.savedGames.filter((game) => game.game === gameChosen)
@@ -30,11 +40,62 @@ const Learn = () => {
         setHistoryIndex(i)
     }
 
+    const getUsersGameData = async () => {
+        if (!isLoggedInRedux) {
+            return toast.error('To learn from your game history, you will need to login/signup first')
+        }
+
+        try {
+            const userEmail = { email: userRedux.email }
+            console.log('userEmail')
+            console.log(userEmail)
+            const res = await getGameData(userEmail)
+
+            if (res) {
+                console.log('res ----------------------------')
+                console.log(res)
+                dispatch(SET_GAME_DATA(res))
+                toast.success('User Game Sessions Found')
+            }
+        } catch (error) {
+            const message =
+                (error.response && error.response.data && error.response.data.message) ||
+                error.message ||
+                error.toString();
+            toast.error(message);
+        }
+    }
+
     useEffect(() => {
-        if (gameChosen !== '') {
+        if (gameChosen !== '' && isLoggedInRedux) {
+            console.log('here')
             changeGameSessions()
         }
-    }, [gameChosen])
+    }, [gameChosen, isLoggedInRedux])
+
+    useEffect(() => {
+        if (Object.keys(gameDataRedux).length === 0 && isLoggedInRedux) {
+            console.log('no game data')
+            getUsersGameData()
+        }
+        if (!isLoggedInRedux) {
+            toast.error('Please sign-in to view your gambling history', {
+                toastId: 'err-auth'
+            })
+            setIsLoading(true)
+            setTimeout(() => {
+                setIsLoading(false)
+                navigate('/login')
+            }, 2000)
+        }
+    }, [gameDataRedux])
+
+    useEffect(() => {
+        if (isLoggedInRedux && gameHistoryUpdatedRedux) {
+            getUsersGameData()
+        }
+    }, [isLoggedInRedux, gameHistoryUpdatedRedux])
+
     return <div className='h-[100vh] w-[100vw] flex flex-col'>
         <Navbar />
         <div className='h-[94%] w-full p-[1rem] z-50'>
@@ -53,9 +114,17 @@ const Learn = () => {
                     </div>
                 </div>
                 {/* SHOW HISTORY BOX */}
-                <div className='h-4/6 w-full shadow3'>
-                    {gameChosen === 'Keno' ? <KenoSession session={session} /> : gameChosen === 'Numbers' ? <NumbersSession session={session} /> : gameChosen === 'Powerball' ? <PowerballSession session={session} /> : gameChosen === 'Scratchers' ? <ScratchersSession session={session} /> : gameChosen === 'Slots' ? <SlotsSession session={session} /> : ''}
-                </div>
+                {isLoading ?
+                    <div className='h-4/6 w-full shadow3 flex justify-center items-center'>
+                        <div className='h-[70%] w-[70%] flex flex-col justify-center items-center'>
+                            <img src={cubes} alt="" />
+                            <h2 className='text-[20px] linearGradientText1'>Navigating To Login Page</h2>
+                        </div>
+                    </div> :
+                    <div className='h-4/6 w-full shadow3'>
+                        {gameChosen === 'Keno' ? <KenoSession session={session} /> : gameChosen === 'Numbers' ? <NumbersSession session={session} /> : gameChosen === 'Powerball' ? <PowerballSession session={session} /> : gameChosen === 'Scratchers' ? <ScratchersSession session={session} /> : gameChosen === 'Slots' ? <SlotsSession session={session} /> : ''}
+                    </div>
+                }
                 {/* CHOOSE HISTORY SESSION BOX */}
                 <div className='h-1/6 w-full shadow3 flex-col shadow3 bg-lightGreen'>
                     <div className='h-[30%] w-full flex justify-center items-center bg-dark shadow3'>
